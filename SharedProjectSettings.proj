@@ -1,0 +1,45 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<LangVersion>latest</LangVersion>
+
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+		<Company>teh13th</Company>
+		<Authors>teh13th</Authors>
+		<Copyright>Copyright © teh13th 2019</Copyright>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/teh13th/String.Extensions.git</RepositoryUrl>
+		<PackageProjectUrl>https://dev.azure.com/teh13th/String.Extensions</PackageProjectUrl>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/teh13th/String.Extensions/master/LICENSE</PackageLicenseUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageTags>string;extensions;case</PackageTags>
+
+		<!-- ReSharper disable UnknownProperty -->
+		<AssemblyVersion Condition="'$(VersionAssembly)' == ''">1.0.0.0</AssemblyVersion>
+		<AssemblyVersion Condition="'$(VersionAssembly)' != ''">$(VersionAssembly)</AssemblyVersion>
+		<InformationalVersion Condition="'$(VersionAssembly)' == ''">1.0.0.0</InformationalVersion>
+		<InformationalVersion Condition="'$(VersionAssembly)' != ''">$(VersionAssembly)</InformationalVersion>
+		<!-- ReSharper restore UnknownProperty -->
+
+		<CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugType>full</DebugType>
+		<NoWarn>NU1701</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>pdbonly</DebugType>
+		<NoWarn>NU1701</NoWarn>
+		<DefineConstants>TRACE;JETBRAINS_ANNOTATIONS</DefineConstants>
+	</PropertyGroup>
+	<ItemGroup>
+		<AdditionalFiles Include="..\stylecop.json" Link="Properties\stylecop.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+</Project>

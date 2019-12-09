@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+#if !NET40
 using System.Runtime.CompilerServices;
+#endif
 using JetBrains.Annotations;
 
 namespace teh13th.String.Extensions
@@ -20,14 +22,17 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to split.</param>
 		/// <param name="separator">A character that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
 		/// <returns>Substrings.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), NotNull, ItemNotNull, Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[NotNull, ItemNotNull, Pure]
 		public static IList<string> SplitBy([CanBeNull] this string str, char separator)
 		{
 			return str?.Trim()
 					  .Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries)
 					  .Select(p => p.Trim())
 					  .ToArray()
-				   ?? Array.Empty<string>();
+				   ?? EmptyArray();
 		}
 
 		/// <summary>
@@ -37,14 +42,17 @@ namespace teh13th.String.Extensions
 		/// <param name="separator">A character that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
 		/// <param name="count">The maximum number of substrings to return.</param>
 		/// <returns>An array whose elements contain the substrings in this string that are delimited by one or more characters in <paramref name="separator"/>.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), NotNull, ItemNotNull, Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[NotNull, ItemNotNull, Pure]
 		public static IList<string> SplitBy([CanBeNull] this string str, char separator, int count)
 		{
 			return str?.Trim()
 					  .Split(new[] { separator }, count, StringSplitOptions.RemoveEmptyEntries)
 					  .Select(p => p.Trim())
 					  .ToArray()
-				   ?? Array.Empty<string>();
+				   ?? EmptyArray();
 		}
 
 		/// <summary>
@@ -53,14 +61,17 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to split.</param>
 		/// <param name="separator">A string that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
 		/// <returns>Substrings.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), NotNull, ItemNotNull, Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[NotNull, ItemNotNull, Pure]
 		public static IList<string> SplitBy([CanBeNull] this string str, [CanBeNull] string separator)
 		{
 			return str?.Trim()
 					  .Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries)
 					  .Select(p => p.Trim())
 					  .ToArray()
-				   ?? Array.Empty<string>();
+				   ?? EmptyArray();
 		}
 
 		/// <summary>
@@ -70,14 +81,17 @@ namespace teh13th.String.Extensions
 		/// <param name="separator">A string that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
 		/// <param name="count">The maximum number of substrings to return.</param>
 		/// <returns>An array whose elements contain the substrings in this string that are delimited by one or more characters in <paramref name="separator"/>.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), NotNull, ItemNotNull, Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[NotNull, ItemNotNull, Pure]
 		public static IList<string> SplitBy([CanBeNull] this string str, [CanBeNull] string separator, int count)
 		{
 			return str?.Trim()
 					  .Split(new[] { separator }, count, StringSplitOptions.RemoveEmptyEntries)
 					  .Select(p => p.Trim())
 					  .ToArray()
-				   ?? Array.Empty<string>();
+				   ?? EmptyArray();
 		}
 
 		/// <summary>
@@ -86,7 +100,10 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The first string to compare, or null.</param>
 		/// <param name="value">The second string to compare, or null.</param>
 		/// <returns>true if the value of the <paramref name="str"/> parameter is equal to the value of the <paramref name="value"/> parameter; otherwise, false.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		[ContractAnnotation("str:null, value:null => true")]
 		[ContractAnnotation("str:null, value:notnull => false")]
 		[ContractAnnotation("str:notnull, value:null => false")]
@@ -101,7 +118,10 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to compare, or null.</param>
 		/// <param name="values">Possible values for <paramref name="str"/>.</param>
 		/// <returns>true if the value of the <paramref name="str"/> parameter is equal to one of values of the <paramref name="values"/> parameter; otherwise, false.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		[ContractAnnotation("values:null => false")]
 		public static bool EqualsOrI([CanBeNull] this string str, [CanBeNull, ItemCanBeNull] params string[] values)
 		{
@@ -114,7 +134,10 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to check.</param>
 		/// <param name="value">The string to compare.</param>
 		/// <returns>true if this instance begins with <paramref name="value"/>; otherwise, false.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		[ContractAnnotation("str:null => false; str:notnull, value:null => true")]
 		public static bool StartsWithI([CanBeNull] this string str, [CanBeNull] string value)
 		{
@@ -132,7 +155,10 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to check.</param>
 		/// <param name="value">The string to compare.</param>
 		/// <returns>true if this instance ends with <paramref name="value"/>; otherwise, false.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		[ContractAnnotation("str:null => false; str:notnull, value:null => true")]
 		public static bool EndsWithI([CanBeNull] this string str, [CanBeNull] string value)
 		{
@@ -150,7 +176,10 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to check.</param>
 		/// <param name="value">The string to seek.</param>
 		/// <returns>The index position of the <paramref name="value"/> parameter if that string is found, or -1 if it is not. If <paramref name="value"/> is <see cref="F:System.String.Empty"></see>, the return value is 0.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		public static int IndexOfI([CanBeNull] this string str, [CanBeNull] string value)
 		{
 			if (str is null)
@@ -172,7 +201,10 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to check.</param>
 		/// <param name="value">The string to seek.</param>
 		/// <returns>true if the <paramref name="value"/> parameter occurs within this string, or if <paramref name="value"/> is the empty string (""); otherwise, false.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		[ContractAnnotation("str:null => false; str:notnull, value:null => false")]
 		public static bool ContainsI([CanBeNull] this string str, [CanBeNull] string value)
 		{
@@ -185,7 +217,10 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to check.</param>
 		/// <param name="values">Values to check for <paramref name="str"/>.</param>
 		/// <returns>true if the value of the <paramref name="str"/> parameter contains one of values of the <paramref name="values"/> parameter; otherwise, false.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		[ContractAnnotation("str:null, values:notnull => false; values:null => false")]
 		public static bool ContainsAnyI([CanBeNull] this string str, [CanBeNull, ItemCanBeNull] params string[] values)
 		{
@@ -198,7 +233,10 @@ namespace teh13th.String.Extensions
 		/// <param name="strings">A sequence in which to locate a value.</param>
 		/// <param name="value">The value to locate in the sequence.</param>
 		/// <returns>true if the source sequence contains an element that has the specified value; otherwise, false.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		[ContractAnnotation("strings:null => false")]
 		public static bool ContainsI([CanBeNull, ItemCanBeNull, InstantHandle] this IEnumerable<string> strings, [CanBeNull] string value)
 		{
@@ -209,7 +247,10 @@ namespace teh13th.String.Extensions
 		/// Validates that string is not null or empty or whitespace.
 		/// </summary>
 		/// <param name="str">String to validate.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), AssertionMethod]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[AssertionMethod]
 		public static void Validate([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string str)
 		{
 			if (str is null)
@@ -227,7 +268,10 @@ namespace teh13th.String.Extensions
 		/// Validates file path string.
 		/// </summary>
 		/// <param name="filePath">File path string.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), AssertionMethod]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[AssertionMethod]
 		public static void ValidateFilePath([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string filePath)
 		{
 			filePath.Validate();
@@ -242,7 +286,10 @@ namespace teh13th.String.Extensions
 		/// Validates directory path string.
 		/// </summary>
 		/// <param name="directoryPath">Directory path string.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), AssertionMethod]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[AssertionMethod]
 		public static void ValidateDirectoryPath([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string directoryPath)
 		{
 			directoryPath.Validate();
@@ -259,7 +306,10 @@ namespace teh13th.String.Extensions
 		/// <param name="enumString">Enum's string representation.</param>
 		/// <typeparam name="TEnum">Enum type.</typeparam>
 		/// <returns>Enum.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[Pure]
 		[ContractAnnotation("null => halt")]
 		public static TEnum ToEnum<TEnum>([CanBeNull] this string enumString)
 			where TEnum : struct
@@ -289,7 +339,10 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="uriString">URI string.</param>
 		/// <returns>URI.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining), NotNull, Pure]
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[NotNull, Pure]
 		[ContractAnnotation("null => halt")]
 		public static Uri ToUri([CanBeNull] this string uriString)
 		{
@@ -301,6 +354,19 @@ namespace teh13th.String.Extensions
 			}
 
 			return uri;
+		}
+
+#if !NET40
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+		[NotNull, Pure]
+		private static string[] EmptyArray()
+		{
+#if NET40
+			return new string[0];
+#else
+			return Array.Empty<string>();
+#endif
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 #if !NET40
@@ -104,9 +105,9 @@ namespace teh13th.String.Extensions
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
 		[Pure]
-		[ContractAnnotation("str:null, value:null => true")]
 		[ContractAnnotation("str:null, value:notnull => false")]
 		[ContractAnnotation("str:notnull, value:null => false")]
+		[ContractAnnotation("str:null, value:null => true")]
 		public static bool EqualsI([CanBeNull] this string str, [CanBeNull] string value)
 		{
 			return string.Equals(str, value, StringComparison.OrdinalIgnoreCase);
@@ -250,7 +251,7 @@ namespace teh13th.String.Extensions
 #if !NET40
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-		[AssertionMethod]
+		[DebuggerStepThrough, AssertionMethod]
 		public static void Validate([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string str)
 		{
 			if (str is null)
@@ -271,7 +272,7 @@ namespace teh13th.String.Extensions
 #if !NET40
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-		[AssertionMethod]
+		[DebuggerStepThrough, AssertionMethod]
 		public static void ValidateFilePath([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string filePath)
 		{
 			filePath.Validate();
@@ -289,7 +290,7 @@ namespace teh13th.String.Extensions
 #if !NET40
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-		[AssertionMethod]
+		[DebuggerStepThrough, AssertionMethod]
 		public static void ValidateDirectoryPath([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string directoryPath)
 		{
 			directoryPath.Validate();
@@ -359,7 +360,7 @@ namespace teh13th.String.Extensions
 #if !NET40
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-		[NotNull, Pure]
+		[DebuggerStepThrough, NotNull, Pure]
 		private static string[] EmptyArray()
 		{
 #if NET40

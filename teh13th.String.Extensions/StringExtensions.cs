@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 #if !NET40
 using System.Runtime.CompilerServices;
 #endif
@@ -17,6 +18,11 @@ namespace teh13th.String.Extensions
 	[PublicAPI]
 	public static class StringExtensions
 	{
+		private const char SnakeCaseSeparator = '_';
+
+		private static readonly Regex UnderscoreRegex = new Regex($"{SnakeCaseSeparator}+(?<char>.)", RegexOptions.Compiled);
+		private static readonly Regex CapitalLetterRegex = new Regex(@"[A-Z]", RegexOptions.Compiled);
+
 		/// <summary>
 		/// Splits a string into substrings based on the <paramref name="separator"/>. You can specify whether the substrings include empty array elements, removing extra whitespaces.
 		/// </summary>
@@ -355,6 +361,52 @@ namespace teh13th.String.Extensions
 			}
 
 			return uri;
+		}
+
+		/// <summary>
+		/// Converts <paramref name="str">string</paramref> to camel case string.
+		/// </summary>
+		/// <param name="str">The string to convert.</param>
+		/// <returns>Camel case string.</returns>
+		[NotNull, Pure]
+		[ContractAnnotation("null => halt")]
+		public static string ToCamelCase([NotNull] this string str)
+		{
+			if (str is null)
+			{
+				throw new ArgumentNullException(nameof(str), "Can't convert null string to camel case.");
+			}
+
+			var result = UnderscoreRegex.Replace(str, x => x.Groups["char"].Value.ToUpper()).Trim(SnakeCaseSeparator);
+			if (result.Length is 0)
+			{
+				return result;
+			}
+
+			if (result.Length is 1)
+			{
+				return result.ToLower();
+			}
+
+			return char.ToLower(result[0]) + result.Substring(1);
+		}
+
+		/// <summary>
+		/// Converts <paramref name="str">string</paramref> to snake case string.
+		/// </summary>
+		/// <param name="str">The string to convert.</param>
+		/// <returns>Snake case string.</returns>
+		[NotNull, Pure]
+		[ContractAnnotation("null => halt")]
+		public static string ToSnakeCase([NotNull] this string str)
+		{
+			if (str is null)
+			{
+				throw new ArgumentNullException(nameof(str), "Can't convert null string to snake case.");
+			}
+
+			return CapitalLetterRegex.Replace(str, x => $"{SnakeCaseSeparator}{x.Value.ToLower()}")
+									 .Replace($"{SnakeCaseSeparator}{SnakeCaseSeparator}", SnakeCaseSeparator.ToString());
 		}
 
 #if !NET40

@@ -37,7 +37,7 @@ namespace teh13th.String.Extensions
 			{
 				foreach (var (oldValue, replacement) in replacements)
 				{
-					enumString = enumString?.Replace(oldValue, replacement);
+					enumString = enumString!.Replace(oldValue, replacement);
 				}
 			}
 

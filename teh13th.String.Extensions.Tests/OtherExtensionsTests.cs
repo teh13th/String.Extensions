@@ -16,7 +16,17 @@ namespace teh13th.String.Extensions.Tests
 		}
 
 		[TestMethod, Timeout(DefaultTimeout)]
-		public void ValidateNotNull_ThrowsException_WhenNullGiven()
+		public void ValidateNotNull_ThrowsException_WhenNullGiven1()
+		{
+			object? o = null;
+
+			Action act = () => o.ValidateNotNull();
+
+			act.Should().ThrowExactly<ArgumentNullException>();
+		}
+
+		[TestMethod, Timeout(DefaultTimeout)]
+		public void ValidateNotNull_ThrowsException_WhenNullGiven2()
 		{
 			object? o = null;
 
@@ -38,7 +48,7 @@ namespace teh13th.String.Extensions.Tests
 		[DataRow(int.MinValue), DataRow(-12), DataRow(0)]
 		public void ValidatePosititve_ThrowsException_WhenNotPositiveNumberGiven(long number)
 		{
-			Action act = () => number.ValidatePosititve(nameof(number));
+			Action act = () => number.ValidatePosititve(number is 0 ? nameof(number) : null);
 
 			act.Should().ThrowExactly<ArgumentOutOfRangeException>();
 		}
@@ -56,7 +66,7 @@ namespace teh13th.String.Extensions.Tests
 		[DataRow(int.MinValue), DataRow(-12), DataRow(-1)]
 		public void ValidateNonNegative_ThrowsException_WhenNegativeNumberGiven(long number)
 		{
-			Action act = () => number.ValidateNonNegative(nameof(number));
+			Action act = () => number.ValidateNonNegative(number is -1 ? nameof(number) : null);
 
 			act.Should().ThrowExactly<ArgumentOutOfRangeException>();
 		}
@@ -74,7 +84,7 @@ namespace teh13th.String.Extensions.Tests
 		[DataRow(int.MinValue), DataRow(-12), DataRow(0)]
 		public void ValidatePosititve_ThrowsException_WhenNotPositiveTimeSpanGiven(long number)
 		{
-			Action act = () => TimeSpan.FromSeconds(number).ValidatePosititve(nameof(number));
+			Action act = () => TimeSpan.FromSeconds(number).ValidatePosititve(number is 0 ? nameof(number) : null);
 
 			act.Should().ThrowExactly<ArgumentOutOfRangeException>();
 		}
@@ -92,7 +102,7 @@ namespace teh13th.String.Extensions.Tests
 		[DataRow(int.MinValue), DataRow(-12), DataRow(-1)]
 		public void ValidateNonNegative_ThrowsException_WhenNegativeTimeSpanGiven(long number)
 		{
-			Action act = () => TimeSpan.FromSeconds(number).ValidateNonNegative(nameof(number));
+			Action act = () => TimeSpan.FromSeconds(number).ValidateNonNegative(number is -1 ? nameof(number) : null);
 
 			act.Should().ThrowExactly<ArgumentOutOfRangeException>();
 		}

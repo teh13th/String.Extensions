@@ -1,4 +1,6 @@
-﻿namespace teh13th.String.Extensions;
+﻿using System;
+
+namespace teh13th.String.Extensions;
 
 /// <summary>
 /// Useful extensions.

@@ -5,7 +5,6 @@
 		<LangVersion>latest</LangVersion>
 		<EnablePreviewFeatures>true</EnablePreviewFeatures>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-		<ImplicitUsings>enable</ImplicitUsings>
 
 		<AssemblyVersion Condition="'$(VersionAssembly)' == ''">1.0.0.0</AssemblyVersion>
 		<AssemblyVersion Condition="'$(VersionAssembly)' != ''">$(VersionAssembly)</AssemblyVersion>

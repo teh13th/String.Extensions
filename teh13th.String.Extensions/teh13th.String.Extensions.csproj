@@ -31,6 +31,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+		<PackageReference Include="System.Net.Http" Version="4.3.4" Condition=" '$(TargetFramework)' == 'net40' " />
 		<PackageReference Include="System.Net.Http" Version="4.3.4" Condition=" '$(TargetFramework)' == 'net461' " />
 		<PackageReference Include="System.ValueTuple" Version="4.5.0" Condition=" '$(TargetFramework)' == 'net40' " />
 		<PackageReference Include="System.ValueTuple" Version="4.5.0" Condition=" '$(TargetFramework)' == 'net461' " />

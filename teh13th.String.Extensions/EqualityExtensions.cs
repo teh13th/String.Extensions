@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
-using JetBrains.Annotations;
+﻿using System.Diagnostics.Contracts;
 
 namespace teh13th.String.Extensions
 {
 	/// <summary>
 	/// Useful extensions for <see cref="string"/> equalizing.
 	/// </summary>
-	[PublicAPI]
 	public static class EqualityExtensions
 	{
 		/// <summary>
@@ -17,9 +14,6 @@ namespace teh13th.String.Extensions
 		/// <param name="value">The second string to compare, or null.</param>
 		/// <returns>true if the value of the <paramref name="str"/> parameter is equal to the value of the <paramref name="value"/> parameter; otherwise, false.</returns>
 		[Pure]
-		[ContractAnnotation("str:null, value:notnull => false")]
-		[ContractAnnotation("str:notnull, value:null => false")]
-		[ContractAnnotation("str:null, value:null => true")]
 		public static bool EqualsI(this string? str, string? value)
 		{
 			return string.Equals(str, value, StringComparison.OrdinalIgnoreCase);
@@ -32,7 +26,6 @@ namespace teh13th.String.Extensions
 		/// <param name="values">Possible values for <paramref name="str"/>.</param>
 		/// <returns>true if the value of the <paramref name="str"/> parameter is equal to one of values of the <paramref name="values"/> parameter; otherwise, false.</returns>
 		[Pure]
-		[ContractAnnotation("values:null => false")]
 		public static bool EqualsOrI(this string? str, params string?[]? values)
 		{
 			return values is not null && values.Any(str.EqualsI);

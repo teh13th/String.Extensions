@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\SharedProjectSettings.proj" />
+	
 	<PropertyGroup>
 		<AssemblyTitle>teh13th.String.Extensions.Tests</AssemblyTitle>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
@@ -10,17 +11,19 @@
 		<Product>teh13th.String.Extensions.Tests</Product>
 		<Description>teh13th.String.Extensions unit tests</Description>
 	</PropertyGroup>
+	
 	<ItemGroup>
-		<PackageReference Include="coverlet.msbuild" Version="2.9.0">
+		<PackageReference Include="coverlet.msbuild" Version="3.1.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="FluentAssertions" Version="5.10.3" />
-		<PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-		<PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
-		<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+		<PackageReference Include="FluentAssertions" Version="6.4.0" />
+		<PackageReference Include="FluentAssertions.Analyzers" Version="0.15.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+		<PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
 	</ItemGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\teh13th.String.Extensions\teh13th.String.Extensions.csproj" />
 	</ItemGroup>

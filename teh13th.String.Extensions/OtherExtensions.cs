@@ -1,12 +1,8 @@
-﻿using System;
-using JetBrains.Annotations;
-
-namespace teh13th.String.Extensions
+﻿namespace teh13th.String.Extensions
 {
 	/// <summary>
 	/// Useful extensions.
 	/// </summary>
-	[PublicAPI]
 	public static class OtherExtensions
 	{
 		/// <summary>
@@ -15,8 +11,6 @@ namespace teh13th.String.Extensions
 		/// <param name="obj">Object to test.</param>
 		/// <param name="variableName">Name of tested variable.</param>
 		/// <returns>Original object.</returns>
-		[NotNull]
-		[ContractAnnotation("obj:null => halt")]
 		public static object ValidateNotNull(this object? obj, string? variableName = null)
 		{
 			if (obj is null)

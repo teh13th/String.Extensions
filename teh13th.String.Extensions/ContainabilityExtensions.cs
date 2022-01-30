@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using JetBrains.Annotations;
+﻿using System.Diagnostics.Contracts;
 
 namespace teh13th.String.Extensions
 {
 	/// <summary>
 	/// Useful extensions for <see cref="string"/> to check if one contains another.
 	/// </summary>
-	[PublicAPI]
 	public static class ContainabilityExtensions
 	{
 		/// <summary>
@@ -18,7 +14,6 @@ namespace teh13th.String.Extensions
 		/// <param name="value">The string to compare.</param>
 		/// <returns>true if this instance begins with <paramref name="value"/>; otherwise, false.</returns>
 		[Pure]
-		[ContractAnnotation("str:null => false; str:notnull, value:null => true")]
 		public static bool StartsWithI(this string? str, string? value)
 		{
 			if (str is null)
@@ -36,7 +31,6 @@ namespace teh13th.String.Extensions
 		/// <param name="value">The string to compare.</param>
 		/// <returns>true if this instance ends with <paramref name="value"/>; otherwise, false.</returns>
 		[Pure]
-		[ContractAnnotation("str:null => false; str:notnull, value:null => true")]
 		public static bool EndsWithI(this string? str, string? value)
 		{
 			if (str is null)
@@ -76,7 +70,6 @@ namespace teh13th.String.Extensions
 		/// <param name="value">The string to seek.</param>
 		/// <returns>true if the <paramref name="value"/> parameter occurs within this string, or if <paramref name="value"/> is the empty string (""); otherwise, false.</returns>
 		[Pure]
-		[ContractAnnotation("str:null => false; str:notnull, value:null => false")]
 		public static bool ContainsI(this string? str, string? value)
 		{
 			return str?.IndexOfI(value) >= 0;
@@ -89,7 +82,6 @@ namespace teh13th.String.Extensions
 		/// <param name="values">Values to check for <paramref name="str"/>.</param>
 		/// <returns>true if the value of the <paramref name="str"/> parameter contains one of values of the <paramref name="values"/> parameter; otherwise, false.</returns>
 		[Pure]
-		[ContractAnnotation("str:null, values:notnull => false; values:null => false")]
 		public static bool ContainsAnyI(this string? str, params string?[]? values)
 		{
 			return values?.Any(str.ContainsI) ?? false;
@@ -102,8 +94,7 @@ namespace teh13th.String.Extensions
 		/// <param name="value">The value to locate in the sequence.</param>
 		/// <returns>true if the source sequence contains an element that has the specified value; otherwise, false.</returns>
 		[Pure]
-		[ContractAnnotation("strings:null => false")]
-		public static bool ContainsI([InstantHandle] this IEnumerable<string?>? strings, string? value)
+		public static bool ContainsI(this IEnumerable<string?>? strings, string? value)
 		{
 			return strings?.Contains(value, StringComparer.OrdinalIgnoreCase) ?? false;
 		}

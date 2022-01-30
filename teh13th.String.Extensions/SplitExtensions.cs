@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
+using System.Diagnostics.Contracts;
 #if !NET40
 using System.Runtime.CompilerServices;
 #endif
-using JetBrains.Annotations;
 
 namespace teh13th.String.Extensions
 {
 	/// <summary>
 	/// Useful extensions for <see cref="string"/> splitting.
 	/// </summary>
-	[PublicAPI]
 	public static class SplitExtensions
 	{
 		/// <summary>
@@ -21,7 +17,7 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to split.</param>
 		/// <param name="separator">A character that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
 		/// <returns>Substrings.</returns>
-		[NotNull, ItemNotNull, Pure]
+		[Pure]
 #if !NET40
 		public static IReadOnlyList<string> SplitBy(this string? str, char separator)
 #else
@@ -42,7 +38,7 @@ namespace teh13th.String.Extensions
 		/// <param name="separator">A character that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
 		/// <param name="count">The maximum number of substrings to return.</param>
 		/// <returns>An array whose elements contain the substrings in this string that are delimited by one or more characters in <paramref name="separator"/>.</returns>
-		[NotNull, ItemNotNull, Pure]
+		[Pure]
 #if !NET40
 		public static IReadOnlyList<string> SplitBy(this string? str, char separator, int count)
 #else
@@ -62,7 +58,7 @@ namespace teh13th.String.Extensions
 		/// <param name="str">The string to split.</param>
 		/// <param name="separator">A string that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
 		/// <returns>Substrings.</returns>
-		[NotNull, ItemNotNull, Pure]
+		[Pure]
 #if !NET40
 		public static IReadOnlyList<string> SplitBy(this string? str, string? separator)
 #else
@@ -83,7 +79,7 @@ namespace teh13th.String.Extensions
 		/// <param name="separator">A string that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
 		/// <param name="count">The maximum number of substrings to return.</param>
 		/// <returns>An array whose elements contain the substrings in this string that are delimited by one or more characters in <paramref name="separator"/>.</returns>
-		[NotNull, ItemNotNull, Pure]
+		[Pure]
 #if !NET40
 		public static IReadOnlyList<string> SplitBy(this string? str, string? separator, int count)
 #else
@@ -97,7 +93,7 @@ namespace teh13th.String.Extensions
 				   ?? EmptyArray();
 		}
 
-		[NotNull, Pure, DebuggerStepThrough]
+		[Pure, DebuggerStepThrough]
 #if !NET40
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static IReadOnlyList<string> EmptyArray()

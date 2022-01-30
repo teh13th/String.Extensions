@@ -1,15 +1,13 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
-using JetBrains.Annotations;
 
 namespace teh13th.String.Extensions
 {
 	/// <summary>
 	/// Useful extensions for <see cref="string"/> conversion.
 	/// </summary>
-	[PublicAPI]
 	public static class ConvertExtensions
 	{
 		private const char SnakeCaseSeparator = '_';
@@ -25,7 +23,6 @@ namespace teh13th.String.Extensions
 		/// <typeparam name="TEnum">Enum type.</typeparam>
 		/// <returns>Enum.</returns>
 		[Pure]
-		[ContractAnnotation("enumString:null => halt")]
 		public static TEnum ToEnum<TEnum>(
 			this string? enumString,
 			params (string OldValue, string Replacement)[]? replacements)
@@ -66,8 +63,7 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="uriString">URI string.</param>
 		/// <returns>URI.</returns>
-		[NotNull, Pure]
-		[ContractAnnotation("null => halt")]
+		[Pure]
 		public static Uri ToUri(this string? uriString)
 		{
 			uriString.ValidateUri();
@@ -80,8 +76,7 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="emailString">E-Mail string.</param>
 		/// <returns>E-Mail.</returns>
-		[NotNull, Pure]
-		[ContractAnnotation("null => halt")]
+		[Pure]
 		public static MailAddress ToEmail(this string? emailString)
 		{
 			return new(emailString!);
@@ -92,8 +87,7 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="str">The string to convert.</param>
 		/// <returns>Camel case string.</returns>
-		[NotNull, Pure]
-		[ContractAnnotation("null => halt")]
+		[Pure]
 		public static string ToCamelCase(this string? str)
 		{
 			if (str is null)
@@ -107,7 +101,11 @@ namespace teh13th.String.Extensions
 			{
 				0 => result,
 				1 => result.ToLower(),
+#if !NET40 && !NETSTANDARD2_0
+				_ => char.ToLower(result[0]) + result[1..]
+#else
 				_ => char.ToLower(result[0]) + result.Substring(1)
+#endif
 			};
 		}
 
@@ -116,8 +114,7 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="str">The string to convert.</param>
 		/// <returns>Snake case string.</returns>
-		[NotNull, Pure]
-		[ContractAnnotation("null => halt")]
+		[Pure]
 		public static string ToSnakeCase(this string? str)
 		{
 			if (str is null)

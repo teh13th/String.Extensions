@@ -1,15 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Net.Mail;
-using JetBrains.Annotations;
 
 namespace teh13th.String.Extensions
 {
 	/// <summary>
 	/// Useful extensions for <see cref="string"/> validation.
 	/// </summary>
-	[PublicAPI]
 	public static class ValidationExtensions
 	{
 		/// <summary>
@@ -18,11 +14,8 @@ namespace teh13th.String.Extensions
 		/// <param name="str">String to validate.</param>
 		/// <param name="variableName">Name of tested variable.</param>
 		/// <returns>Original string.</returns>
-		[NotNull, DebuggerStepThrough, AssertionMethod]
-		[ContractAnnotation("str:null => halt")]
-		public static string Validate(
-			[AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string? str,
-			string? variableName = null)
+		[DebuggerStepThrough]
+		public static string Validate(this string? str, string? variableName = null)
 		{
 			variableName ??= nameof(str);
 
@@ -44,9 +37,8 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="filePath">File path string.</param>
 		/// <returns>Original file path.</returns>
-		[NotNull, DebuggerStepThrough, AssertionMethod]
-		[ContractAnnotation("null => halt")]
-		public static string ValidateFilePath([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string? filePath)
+		[DebuggerStepThrough]
+		public static string ValidateFilePath(this string? filePath)
 		{
 			filePath.Validate();
 
@@ -63,10 +55,8 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="directoryPath">Directory path string.</param>
 		/// <returns>Original directory path.</returns>
-		[NotNull, DebuggerStepThrough, AssertionMethod]
-		[ContractAnnotation("null => halt")]
-		public static string ValidateDirectoryPath(
-			[AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string? directoryPath)
+		[DebuggerStepThrough]
+		public static string ValidateDirectoryPath(this string? directoryPath)
 		{
 			directoryPath.Validate();
 
@@ -83,9 +73,8 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="uriString">URI string.</param>
 		/// <returns>URI.</returns>
-		[NotNull, DebuggerStepThrough, AssertionMethod]
-		[ContractAnnotation("null => halt")]
-		public static Uri ValidateUri([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string? uriString)
+		[DebuggerStepThrough]
+		public static Uri ValidateUri(this string? uriString)
 		{
 			uriString.Validate();
 
@@ -102,10 +91,8 @@ namespace teh13th.String.Extensions
 		/// </summary>
 		/// <param name="emailString">E-Mail string.</param>
 		/// <returns>E-Mail.</returns>
-		[NotNull, DebuggerStepThrough, AssertionMethod]
-		[ContractAnnotation("null => halt")]
-		public static MailAddress ValidateEmail(
-			[AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string? emailString)
+		[DebuggerStepThrough]
+		public static MailAddress ValidateEmail(this string? emailString)
 		{
 			emailString.Validate();
 

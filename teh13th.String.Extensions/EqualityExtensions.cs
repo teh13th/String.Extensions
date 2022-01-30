@@ -15,9 +15,7 @@ namespace teh13th.String.Extensions
 		/// <returns>true if the value of the <paramref name="str"/> parameter is equal to the value of the <paramref name="value"/> parameter; otherwise, false.</returns>
 		[Pure]
 		public static bool EqualsI(this string? str, string? value)
-		{
-			return string.Equals(str, value, StringComparison.OrdinalIgnoreCase);
-		}
+			=> string.Equals(str, value, StringComparison.OrdinalIgnoreCase);
 
 		/// <summary>
 		/// Determines whether specified <see cref="T:System.String"></see> object have on of values from <paramref name="values">strings</paramref> (ignore case).
@@ -27,8 +25,6 @@ namespace teh13th.String.Extensions
 		/// <returns>true if the value of the <paramref name="str"/> parameter is equal to one of values of the <paramref name="values"/> parameter; otherwise, false.</returns>
 		[Pure]
 		public static bool EqualsOrI(this string? str, params string?[]? values)
-		{
-			return values is not null && values.Any(str.EqualsI);
-		}
+			=> values is not null && values.Any(str.EqualsI);
 	}
 }

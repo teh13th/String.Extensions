@@ -23,13 +23,16 @@ namespace teh13th.String.Extensions
 #else
 		public static IList<string> SplitBy(this string? str, char separator)
 #endif
-		{
-			return str?.Trim()
-					  .Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries)
-					  .Select(p => p.Trim())
-					  .ToArray()
-				   ?? EmptyArray();
-		}
+			=> str?.Trim()
+#if NET5_0_OR_GREATER
+				   .Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+#else
+				   .Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries)
+				   .Where(p => !string.IsNullOrWhiteSpace(p))
+#endif
+				   .Select(p => p.Trim())
+				   .ToArray()
+				?? EmptyArray();
 
 		/// <summary>
 		/// Splits a string into a maximum number of substrings based on the <paramref name="separator"/>, removing extra whitespaces.
@@ -44,13 +47,16 @@ namespace teh13th.String.Extensions
 #else
 		public static IList<string> SplitBy(this string? str, char separator, int count)
 #endif
-		{
-			return str?.Trim()
-					  .Split(new[] { separator }, count, StringSplitOptions.RemoveEmptyEntries)
-					  .Select(p => p.Trim())
-					  .ToArray()
-				   ?? EmptyArray();
-		}
+			=> str?.Trim()
+#if NET5_0_OR_GREATER
+				   .Split(new[] { separator }, count, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+#else
+				   .Split(new[] { separator }, count, StringSplitOptions.RemoveEmptyEntries)
+				   .Where(p => !string.IsNullOrWhiteSpace(p))
+#endif
+				   .Select(p => p.Trim())
+				   .ToArray()
+				?? EmptyArray();
 
 		/// <summary>
 		/// Splits a string into substrings based on the <paramref name="separator"/>. You can specify whether the substrings include empty array elements, removing extra whitespaces.
@@ -64,13 +70,16 @@ namespace teh13th.String.Extensions
 #else
 		public static IList<string> SplitBy(this string? str, string? separator)
 #endif
-		{
-			return str?.Trim()
-					  .Split(new[] { separator! }, StringSplitOptions.RemoveEmptyEntries)
-					  .Select(p => p.Trim())
-					  .ToArray()
-				   ?? EmptyArray();
-		}
+			=> str?.Trim()
+#if NET5_0_OR_GREATER
+				   .Split(new[] { separator! }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+#else
+				   .Split(new[] { separator! }, StringSplitOptions.RemoveEmptyEntries)
+				   .Where(p => !string.IsNullOrWhiteSpace(p))
+#endif
+				   .Select(p => p.Trim())
+				   .ToArray()
+				?? EmptyArray();
 
 		/// <summary>
 		/// Splits a string into a maximum number of substrings based on the <paramref name="separator"/>, removing extra whitespaces.
@@ -85,26 +94,23 @@ namespace teh13th.String.Extensions
 #else
 		public static IList<string> SplitBy(this string? str, string? separator, int count)
 #endif
-		{
-			return str?.Trim()
-					  .Split(new[] { separator! }, count, StringSplitOptions.RemoveEmptyEntries)
-					  .Select(p => p.Trim())
-					  .ToArray()
-				   ?? EmptyArray();
-		}
+			=> str?.Trim()
+#if NET5_0_OR_GREATER
+				   .Split(new[] { separator! }, count, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+#else
+				   .Split(new[] { separator! }, count, StringSplitOptions.RemoveEmptyEntries)
+				   .Where(p => !string.IsNullOrWhiteSpace(p))
+#endif
+				   .Select(p => p.Trim())
+				   .ToArray()
+				?? EmptyArray();
 
 		[Pure, DebuggerStepThrough]
 #if !NET40
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static IReadOnlyList<string> EmptyArray()
-		{
-			return Array.Empty<string>();
-		}
+		private static IReadOnlyList<string> EmptyArray() => Array.Empty<string>();
 #else
-		private static string[] EmptyArray()
-		{
-			return new string[0];
-		}
+		private static string[] EmptyArray() => new string[0];
 #endif
 	}
 }

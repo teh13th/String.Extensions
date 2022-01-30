@@ -19,17 +19,11 @@ namespace teh13th.String.Extensions
 		{
 			variableName ??= nameof(str);
 
-			if (str is null)
-			{
-				throw new ArgumentNullException(variableName);
-			}
-
-			if (string.IsNullOrWhiteSpace(str))
-			{
-				throw new ArgumentException("Value cannot be empty or whitespace.", variableName);
-			}
-
-			return str;
+			return str is null
+						? throw new ArgumentNullException(variableName)
+						: string.IsNullOrWhiteSpace(str)
+								? throw new ArgumentException("Value cannot be empty or whitespace.", variableName)
+								: str;
 		}
 
 		/// <summary>
@@ -42,12 +36,9 @@ namespace teh13th.String.Extensions
 		{
 			filePath.Validate();
 
-			if (!File.Exists(filePath))
-			{
-				throw new FileNotFoundException("Failed to find file.", filePath);
-			}
-
-			return filePath!;
+			return !File.Exists(filePath)
+						? throw new FileNotFoundException("Failed to find file.", filePath)
+						: filePath!;
 		}
 
 		/// <summary>
@@ -60,12 +51,9 @@ namespace teh13th.String.Extensions
 		{
 			directoryPath.Validate();
 
-			if (!Directory.Exists(directoryPath))
-			{
-				throw new DirectoryNotFoundException($"Failed to find directory '{directoryPath}'.");
-			}
-
-			return directoryPath!;
+			return !Directory.Exists(directoryPath)
+						? throw new DirectoryNotFoundException($"Failed to find directory '{directoryPath}'.")
+						: directoryPath!;
 		}
 
 		/// <summary>
@@ -78,12 +66,9 @@ namespace teh13th.String.Extensions
 		{
 			uriString.Validate();
 
-			if (!Uri.TryCreate(uriString, UriKind.Absolute, out var uri))
-			{
-				throw new FormatException($"URI '{uriString}' isn't valid");
-			}
-
-			return uri;
+			return !Uri.TryCreate(uriString, UriKind.Absolute, out var uri)
+						? throw new FormatException($"URI '{uriString}' isn't valid")
+						: uri;
 		}
 
 		/// <summary>

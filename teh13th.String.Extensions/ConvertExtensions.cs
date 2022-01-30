@@ -48,14 +48,9 @@ namespace teh13th.String.Extensions
 													  $"Failed to parse {nameof(enumString)} to {enumType.Name} enum.");
 			}
 
-			if (!Enum.IsDefined(enumType, enumResult))
-			{
-				throw new InvalidEnumArgumentException(nameof(enumString),
-													   int.Parse(enumString!),
-													   enumType);
-			}
-
-			return enumResult;
+			return !Enum.IsDefined(enumType, enumResult)
+					? throw new InvalidEnumArgumentException(nameof(enumString), int.Parse(enumString!), enumType)
+					: enumResult;
 		}
 
 		/// <summary>
@@ -77,10 +72,7 @@ namespace teh13th.String.Extensions
 		/// <param name="emailString">E-Mail string.</param>
 		/// <returns>E-Mail.</returns>
 		[Pure]
-		public static MailAddress ToEmail(this string? emailString)
-		{
-			return new(emailString!);
-		}
+		public static MailAddress ToEmail(this string? emailString) => new(emailString!);
 
 		/// <summary>
 		/// Converts <paramref name="str">string</paramref> to camel case string.
@@ -101,7 +93,7 @@ namespace teh13th.String.Extensions
 			{
 				0 => result,
 				1 => result.ToLower(),
-#if !NET40 && !NETSTANDARD2_0
+#if NETCOREAPP3_1_OR_GREATER
 				_ => char.ToLower(result[0]) + result[1..]
 #else
 				_ => char.ToLower(result[0]) + result.Substring(1)

@@ -15,14 +15,9 @@ namespace teh13th.String.Extensions
 		/// <returns>true if this instance begins with <paramref name="value"/>; otherwise, false.</returns>
 		[Pure]
 		public static bool StartsWithI(this string? str, string? value)
-		{
-			if (str is null)
-			{
-				return false;
-			}
-
-			return value is null || str.StartsWith(value, StringComparison.OrdinalIgnoreCase);
-		}
+			=> str is null
+					? false
+					: value is null || str.StartsWith(value, StringComparison.OrdinalIgnoreCase);
 
 		/// <summary>
 		/// Determines whether the end of this string instance matches the specified string (ignore case).
@@ -32,14 +27,9 @@ namespace teh13th.String.Extensions
 		/// <returns>true if this instance ends with <paramref name="value"/>; otherwise, false.</returns>
 		[Pure]
 		public static bool EndsWithI(this string? str, string? value)
-		{
-			if (str is null)
-			{
-				return false;
-			}
-
-			return value is null || str.EndsWith(value, StringComparison.OrdinalIgnoreCase);
-		}
+			=> str is null
+					? false
+					: value is null || str.EndsWith(value, StringComparison.OrdinalIgnoreCase);
 
 		/// <summary>
 		/// Reports the zero-based index of the first occurrence of the specified string in the current <see cref="T:System.String"></see> object (ignore case).
@@ -70,10 +60,7 @@ namespace teh13th.String.Extensions
 		/// <param name="value">The string to seek.</param>
 		/// <returns>true if the <paramref name="value"/> parameter occurs within this string, or if <paramref name="value"/> is the empty string (""); otherwise, false.</returns>
 		[Pure]
-		public static bool ContainsI(this string? str, string? value)
-		{
-			return str?.IndexOfI(value) >= 0;
-		}
+		public static bool ContainsI(this string? str, string? value) => str?.IndexOfI(value) >= 0;
 
 		/// <summary>
 		/// Returns a value indicating whether a specified string occurs in <paramref name="values"/> (ignore case).
@@ -83,9 +70,7 @@ namespace teh13th.String.Extensions
 		/// <returns>true if the value of the <paramref name="str"/> parameter contains one of values of the <paramref name="values"/> parameter; otherwise, false.</returns>
 		[Pure]
 		public static bool ContainsAnyI(this string? str, params string?[]? values)
-		{
-			return values?.Any(str.ContainsI) ?? false;
-		}
+			=> values?.Any(str.ContainsI) ?? false;
 
 		/// <summary>
 		/// Determines whether a sequence contains a specified element (ignore case).
@@ -95,8 +80,6 @@ namespace teh13th.String.Extensions
 		/// <returns>true if the source sequence contains an element that has the specified value; otherwise, false.</returns>
 		[Pure]
 		public static bool ContainsI(this IEnumerable<string?>? strings, string? value)
-		{
-			return strings?.Contains(value, StringComparer.OrdinalIgnoreCase) ?? false;
-		}
+			=> strings?.Contains(value, StringComparer.OrdinalIgnoreCase) ?? false;
 	}
 }

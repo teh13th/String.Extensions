@@ -16,3 +16,4 @@ For example, for case-insensitive check for equility use the following code:
 using teh13th.String.Extensions;
 "test".EqualsI("TEST");
 ```
+

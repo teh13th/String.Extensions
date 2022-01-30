@@ -7,17 +7,24 @@ namespace teh13th.String.Extensions.Tests
 	public sealed class SplitExtensionsTests : TestBase
 	{
 		[TestMethod, Timeout(DefaultTimeout)]
+		public void SplitBy_Correct_IfEmptyItemInTheMiddle()
+		{
+			const string str = ",  ,11";
+			str.SplitBy(',').Should().Equal("11");
+		}
+
+		[TestMethod, Timeout(DefaultTimeout)]
 		public void SplitBy_Correct_IfNoCountSet()
 		{
-			const string str = " a;   ;bcd;;eee; ";
-			str.SplitBy(';').Should().Equal("a", string.Empty, "bcd", "eee");
+			const string str = " a;   ;bcd;;eee;;ff; ";
+			str.SplitBy(';').Should().Equal("a", "bcd", "eee", "ff");
 		}
 
 		[TestMethod, Timeout(DefaultTimeout)]
 		public void SplitBy_Correct_IfCountSet()
 		{
-			const string str = " a;   ;bcd;;eee; ";
-			str.SplitBy(';', 3).Should().Equal("a", string.Empty, "bcd;;eee;");
+			const string str = " a;   ;bcd;;eee;;ff; ";
+			str.SplitBy(';', 3).Should().Equal("a", "bcd", "eee;;ff;");
 		}
 
 		[TestMethod, Timeout(DefaultTimeout)]

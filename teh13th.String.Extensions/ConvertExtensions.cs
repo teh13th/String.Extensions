@@ -43,11 +43,14 @@ public static class ConvertExtensions
 
 		var enumType = typeof(TEnum);
 
-		return !Enum.TryParse(enumString, true, out TEnum enumResult)
-					? throw new ArgumentOutOfRangeException(
+		if (!Enum.TryParse(enumString, true, out TEnum enumResult))
+		{
+			throw new ArgumentOutOfRangeException(
 									nameof(enumString),
-									$"Failed to parse {nameof(enumString)} to {enumType.Name} enum.")
-					: !Enum.IsDefined(enumType, enumResult)
+									$"Failed to parse {nameof(enumString)} to {enumType.Name} enum.");
+		}
+
+		return !Enum.IsDefined(enumType, enumResult)
 							? throw new InvalidEnumArgumentException(
 										nameof(enumString),
 										int.Parse(enumString!),
@@ -117,7 +120,7 @@ public static class ConvertExtensions
 		}
 
 		var result = CapitalLetterRegex.Replace(str, x => $"{SnakeCaseSeparator}{x.Value.ToLower()}")
-										.Replace($"{SnakeCaseSeparator}{SnakeCaseSeparator}", SnakeCaseSeparator.ToString());
+									   .Replace($"{SnakeCaseSeparator}{SnakeCaseSeparator}", SnakeCaseSeparator.ToString());
 
 		if (!str.StartsWith(SnakeCaseSeparator.ToString()))
 		{

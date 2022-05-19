@@ -127,6 +127,30 @@ namespace teh13th.String.Extensions.Tests
 		}
 
 		[TestMethod, Timeout(DefaultTimeout)]
+		public void IndexOfIChar_MinusOne_IfNullStr()
+		{
+			const string? str = null;
+			const char character = 'a';
+			str.IndexOfI(character).Should().Be(-1, "given string is null");
+		}
+
+		[TestMethod, Timeout(DefaultTimeout)]
+		public void IndexOfIChar_Correct_IfDifferentCase()
+		{
+			const string? str = "bbAAAAAbb";
+			const char character = 'a';
+			str.IndexOfI(character).Should().Be(2, $"string '{str}' has a character '{character}' with different case");
+		}
+
+		[TestMethod, Timeout(DefaultTimeout)]
+		public void IndexOfIChar_Correct_IfSameCase()
+		{
+			const string? str = "bbAAAAAbb";
+			const char character = 'A';
+			str.IndexOfI(character).Should().Be(2, $"string '{str}' has a character '{character}' with same case");
+		}
+
+		[TestMethod, Timeout(DefaultTimeout)]
 		public void ContainsI_False_IfNullStr()
 		{
 			const string? str1 = null;
@@ -218,6 +242,30 @@ namespace teh13th.String.Extensions.Tests
 			const string str = "AAaBcde";
 			var array = new[] { "Qrw", "bbbb", "AQE" };
 			array.ContainsI(str).Should().BeFalse($"{nameof(array)} [{string.Join(", ", array)}] doesn't contain {nameof(str)} '{str}'");
+		}
+
+		[TestMethod, Timeout(DefaultTimeout)]
+		public void ContainsIChar_False_IfNullStr()
+		{
+			const string? str = null;
+			const char character = 'B';
+			str.ContainsI(character).Should().BeFalse("given string is null");
+		}
+
+		[TestMethod, Timeout(DefaultTimeout)]
+		public void ContainsIChar_Correct_IfDifferentCase()
+		{
+			const string? str = "cascbbbcasc";
+			const char character = 'B';
+			str.ContainsI(character).Should().BeTrue($"string '{str}' has a character '{character}' with different case");
+		}
+
+		[TestMethod, Timeout(DefaultTimeout)]
+		public void ContainsIChar_Correct_IfSameCase()
+		{
+			const string? str = "cascBBBcasc";
+			const char character = 'B';
+			str.ContainsI(character).Should().BeTrue($"string '{str}' has a character '{character}' with same case");
 		}
 	}
 }

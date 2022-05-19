@@ -21,11 +21,14 @@ public static class ValidationExtensions
 	{
 		variableName ??= nameof(str);
 
-		return str is null
-					? throw new ArgumentNullException(variableName)
-					: string.IsNullOrWhiteSpace(str)
-							? throw new ArgumentException("Value cannot be empty or whitespace.", variableName)
-							: str;
+		if (str is null)
+		{
+			throw new ArgumentNullException(variableName);
+		}
+
+		return string.IsNullOrWhiteSpace(str)
+					? throw new ArgumentException("Value cannot be empty or whitespace.", variableName)
+					: str;
 	}
 
 	/// <summary>

@@ -49,6 +49,24 @@ public static class ContainabilityExtensions
 						};
 
 	/// <summary>
+	/// Reports the zero-based index of the first occurrence of the specified character in the current <see cref="T:System.String"></see> object (ignore case).
+	/// </summary>
+	/// <param name="str">The string to check.</param>
+	/// <param name="value">The character to seek.</param>
+	/// <returns>The index position of the <paramref name="value"/> parameter if that string is found, or -1 if it is not. If <paramref name="value"/> is <see cref="F:System.String.Empty"></see>, the return value is 0.</returns>
+	[Pure]
+	public static int IndexOfI(this string? str, char value)
+	{
+#if NETCOREAPP2_1_OR_GREATER
+		return str is null
+					? -1
+					: str.IndexOf(value, StringComparison.OrdinalIgnoreCase);
+#else
+		return str.IndexOfI(value.ToString());
+#endif
+	}
+
+	/// <summary>
 	/// Returns a value indicating whether a specified substring occurs within this string (ignore case).
 	/// </summary>
 	/// <param name="str">The string to check.</param>
@@ -58,14 +76,13 @@ public static class ContainabilityExtensions
 	public static bool ContainsI(this string? str, string? value) => str?.IndexOfI(value) >= 0;
 
 	/// <summary>
-	/// Returns a value indicating whether a specified string occurs in <paramref name="values"/> (ignore case).
+	/// Returns a value indicating whether a specified character occurs within this string (ignore case).
 	/// </summary>
 	/// <param name="str">The string to check.</param>
-	/// <param name="values">Values to check for <paramref name="str"/>.</param>
-	/// <returns>true if the value of the <paramref name="str"/> parameter contains one of values of the <paramref name="values"/> parameter; otherwise, false.</returns>
+	/// <param name="value">The character to seek.</param>
+	/// <returns>true if the <paramref name="value"/> parameter occurs within this string, or if <paramref name="value"/> is the empty string (""); otherwise, false.</returns>
 	[Pure]
-	public static bool ContainsAnyI(this string? str, params string?[]? values)
-		=> values?.Any(str.ContainsI) ?? false;
+	public static bool ContainsI(this string? str, char value) => str?.IndexOfI(value) >= 0;
 
 	/// <summary>
 	/// Determines whether a sequence contains a specified element (ignore case).
@@ -76,4 +93,14 @@ public static class ContainabilityExtensions
 	[Pure]
 	public static bool ContainsI(this IEnumerable<string?>? strings, string? value)
 		=> strings?.Contains(value, StringComparer.OrdinalIgnoreCase) ?? false;
+
+	/// <summary>
+	/// Returns a value indicating whether a specified string occurs in <paramref name="values"/> (ignore case).
+	/// </summary>
+	/// <param name="str">The string to check.</param>
+	/// <param name="values">Values to check for <paramref name="str"/>.</param>
+	/// <returns>true if the value of the <paramref name="str"/> parameter contains one of values of the <paramref name="values"/> parameter; otherwise, false.</returns>
+	[Pure]
+	public static bool ContainsAnyI(this string? str, params string?[]? values)
+		=> values?.Any(str.ContainsI) ?? false;
 }

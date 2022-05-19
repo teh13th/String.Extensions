@@ -9,25 +9,25 @@ namespace teh13th.String.Extensions.Tests
 	[TestClass]
 	public sealed class ConvertExtensionsTests : TestBase
 	{
-		public enum TestEnum : byte
+		public enum Test : byte
 		{
 			Zero = 0,
 			Two = 2
 		}
 
 		[DataTestMethod, Timeout(DefaultTimeout)]
-		[DataRow("0", TestEnum.Zero)]
-		[DataRow("2", TestEnum.Two)]
-		[DataRow("000", TestEnum.Zero)]
-		[DataRow("002", TestEnum.Two)]
-		[DataRow("Zero", TestEnum.Zero)]
-		[DataRow("Two", TestEnum.Two)]
-		[DataRow("zero", TestEnum.Zero)]
-		[DataRow("two", TestEnum.Two)]
-		[DataRow("ze-ro", TestEnum.Zero)]
-		public void ToEnum_Success_WhenValidStringGiven(string str, TestEnum result)
+		[DataRow("0", Test.Zero)]
+		[DataRow("2", Test.Two)]
+		[DataRow("000", Test.Zero)]
+		[DataRow("002", Test.Two)]
+		[DataRow("Zero", Test.Zero)]
+		[DataRow("Two", Test.Two)]
+		[DataRow("zero", Test.Zero)]
+		[DataRow("two", Test.Two)]
+		[DataRow("ze-ro", Test.Zero)]
+		public void ToEnum_Success_WhenValidStringGiven(string str, Test result)
 		{
-			str.ToEnum<TestEnum>(("-", string.Empty)).Should().Be(result);
+			str.ToEnum<Test>(("-", string.Empty)).Should().Be(result);
 		}
 
 		[DataTestMethod, Timeout(DefaultTimeout)]
@@ -35,7 +35,7 @@ namespace teh13th.String.Extensions.Tests
 		[DataRow("Invalid")]
 		public void ToEnum_ThrowsException_WhenInvalidStringGiven1(string str)
 		{
-			Action act = () => _ = str.ToEnum<TestEnum>();
+			Action act = () => _ = str.ToEnum<Test>();
 			act.Should().ThrowExactly<ArgumentOutOfRangeException>();
 		}
 
@@ -44,7 +44,7 @@ namespace teh13th.String.Extensions.Tests
 		[DataRow("3")]
 		public void ToEnum_ThrowsException_WhenInvalidStringGiven2(string str)
 		{
-			Action act = () => _ = str.ToEnum<TestEnum>();
+			Action act = () => _ = str.ToEnum<Test>();
 			act.Should().ThrowExactly<InvalidEnumArgumentException>();
 		}
 

@@ -106,5 +106,16 @@ namespace teh13th.String.Extensions.Tests
 
 			act.Should().ThrowExactly<ArgumentOutOfRangeException>();
 		}
+
+		[DataTestMethod, Timeout(DefaultTimeout)]
+		[DataRow("this is fox!", "this is cat!")]
+		[DataRow("this is fOx!", "this is cat!")]
+		[DataRow("this is FOX!", "this is cat!")]
+		[DataRow("this is dog!", "this is dog!")]
+		[DataRow(null, null)]
+		public void ReplaceI_Correct_WhenValidArgsGiven(string original, string result)
+		{
+			original.ReplaceI("FOX", "cat").Should().Be(result);
+		}
 	}
 }
